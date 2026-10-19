@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-str1 = "object-oriented programming"
-str2 = "Python"
-str3 = "Welcome to Holberton School!"
-print(str3)
+str1 = "Holberton"
+str2 = "School"
+print("Welcome to " + str1 + " " + str2 + "!")
