@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+"""Uses the GitHub API with a username and token to show the user id."""
+import sys
+import requests
+
+
+if __name__ == "__main__":
+    r = requests.get("https://api.github.com/user",
+                     auth=(sys.argv[1], sys.argv[2]))
+    print(r.json().get("id"))
