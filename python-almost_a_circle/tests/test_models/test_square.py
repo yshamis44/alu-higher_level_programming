@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Unittests for the Square class in models/square.py."""
 import io
+import os
 import unittest
 from contextlib import redirect_stdout
 from models.base import Base
@@ -134,6 +135,31 @@ class TestSquare(unittest.TestCase):
         s2.update(**s1.to_dictionary())
         self.assertEqual(str(s1), str(s2))
         self.assertNotEqual(s1, s2)
+
+    def test_square_y_string(self):
+        """Square(1, 2, "3") raises a TypeError for y."""
+        with self.assertRaises(TypeError) as e:
+            Square(1, 2, "3")
+        self.assertEqual(str(e.exception), "y must be an integer")
+
+    def test_square_negative_size(self):
+        """Square(-1) raises a ValueError for width."""
+        with self.assertRaises(ValueError) as e:
+            Square(-1)
+        self.assertEqual(str(e.exception), "width must be > 0")
+
+    def test_square_negative_x(self):
+        """Square(1, -2) raises a ValueError for x."""
+        with self.assertRaises(ValueError) as e:
+            Square(1, -2)
+        self.assertEqual(str(e.exception), "x must be >= 0")
+
+    def test_square_save_to_file_none(self):
+        """Square.save_to_file(None) saves an empty list."""
+        Square.save_to_file(None)
+        with open("Square.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+        os.remove("Square.json")
 
 
 if __name__ == "__main__":
